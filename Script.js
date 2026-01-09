@@ -1,31 +1,29 @@
-body {
-  font-family: Arial, sans-serif;
-  background: #f4f4f4;
-}
+const addBtn = document.getElementById("addBtn");
+const taskInput = document.getElementById("taskInput");
+const taskList = document.getElementById("taskList");
 
-.container {
-  width: 300px;
-  margin: 50px auto;
-}
+addBtn.addEventListener("click", function () {
+  const taskText = taskInput.value.trim();
 
-ul {
-  padding: 0;
-}
+  if (taskText === "") return;
 
-li {
-  list-style: none;
-  padding: 8px;
-  background: #fff;
-  margin-top: 5px;
-  display: flex;
-  justify-content: space-between;
-}
+  const li = document.createElement("li");
+  li.textContent = taskText;
 
-.completed {
-  text-decoration: line-through;
-  color: gray;
-}
+  li.addEventListener("click", function () {
+    li.classList.toggle("completed");
+  });
 
-button {
-  cursor: pointer;
-}
+  const deleteBtn = document.createElement("button");
+  deleteBtn.textContent = "X";
+
+  deleteBtn.addEventListener("click", function (e) {
+    e.stopPropagation();
+    li.remove();
+  });
+
+  li.appendChild(deleteBtn);
+  taskList.appendChild(li);
+
+  taskInput.value = "";
+});
